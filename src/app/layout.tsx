@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { AccountProvider } from "@/components/sites/hellabeauty-vn-ba054dbc/account/AccountContext";
 
 export const metadata: Metadata = {
-  title: "Website Clone",
-  description: "Pixel-perfect website clone",
+  title: "Hella Beauty",
+  description:
+    "Hella Beauty — Chăm sóc toàn diện. Mua sắm & tận hưởng giao hàng miễn phí toàn quốc cùng Hellabeauty.vn",
+  icons: {
+    icon: "/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/images/favicon.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -23,11 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="vi" className="h-full antialiased">
+      <body className="min-h-full flex flex-col bg-white text-black">
+        <AccountProvider>{children}</AccountProvider>
+      </body>
     </html>
   );
 }
