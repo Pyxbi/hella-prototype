@@ -6,7 +6,7 @@ import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2
 import { BuddyLanding } from "./BuddyLanding";
 import { BuddyOrderLookup } from "./BuddyOrderLookup";
 import { BuddyQuiz } from "./BuddyQuiz";
-import { BuddyResult } from "./BuddyResult";
+import { BuddyPlan } from "./plan/BuddyPlan";
 import type { BuddyAnswers } from "./buddyData";
 
 type Phase = "landing" | "order" | "quiz" | "result";
@@ -42,7 +42,7 @@ export function HellaBuddyPage() {
       )}
 
       {phase === "result" && answers && (
-        <BuddyResult answers={answers} boughtStepIds={boughtStepIds} onEdit={() => setPhase("quiz")} />
+        <BuddyPlan answers={answers} boughtStepIds={boughtStepIds} onEdit={() => setPhase("quiz")} />
       )}
 
       <Footer />
