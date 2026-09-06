@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { TikTokVideo } from "./tiktokFeed";
+import { TikTokVideo } from "./tiktokData";
 import { ArrowRightIcon } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 
 interface TikTokModalProps {

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { TikTokVideo } from "./tiktokFeed";
+import { TikTokVideo } from "./tiktokData";
 import {
   ArrowRightIcon,
   PlayIcon,

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { TikTokCard } from "./TikTokCard";
 import { TikTokModal } from "./TikTokModal";
-import { tiktokProfileUrl, tiktokVideos, type TikTokVideo } from "./tiktokFeed";
+import { tiktokProfileUrl, tiktokVideos, type TikTokVideo } from "./tiktokData";
 import { ArrowRightIcon } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 
 export function TikTokFeed() {
