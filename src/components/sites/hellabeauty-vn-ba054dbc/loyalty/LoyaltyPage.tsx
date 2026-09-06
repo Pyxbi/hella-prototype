@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Header";
 import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Footer";
-import { StarJar } from "./StarJar";
+import { HeroJar3D } from "./three3d/HeroJar3D";
+import { LoyaltyIntro } from "./three3d/LoyaltyIntro";
+import { MiniJar } from "./MiniJar";
 import { JAR_CAPACITY, tiers, type Voucher } from "./loyaltyData";
 import {
   CheckIcon,
@@ -13,13 +15,37 @@ import {
   StarIcon,
 } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 
+const INTRO_KEY = "hella-loyalty-intro";
+
 export function LoyaltyPage() {
   const [tierIndex, setTierIndex] = useState(0);
   const [stars, setStars] = useState(90);
-  const [dropping, setDropping] = useState(false);
-  const [popup, setPopup] = useState(true);
+  const [heroKey, setHeroKey] = useState(0);
+  const [busy, setBusy] = useState(false);
   const [claimed, setClaimed] = useState<Voucher | null>(null);
   const [copied, setCopied] = useState(false);
+
+  // Full-screen 3D star-pour intro, once per browser session.
+  const [showIntro, setShowIntro] = useState(false);
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(INTRO_KEY) === "1";
+    } catch {
+      /* storage unavailable */
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!seen) setShowIntro(true);
+  }, []);
+
+  const finishIntro = () => {
+    setShowIntro(false);
+    try {
+      sessionStorage.setItem(INTRO_KEY, "1");
+    } catch {
+      /* storage unavailable */
+    }
+  };
 
   const copyCode = async () => {
     if (!claimed) return;
@@ -37,22 +63,21 @@ export function LoyaltyPage() {
   const nextTier = tiers[tierIndex + 1];
 
   const addStars = (n: number) => {
-    setDropping(true);
-    setTimeout(() => setStars((s) => Math.min(JAR_CAPACITY, s + n)), 400);
-    setTimeout(() => setDropping(false), 1700);
+    setBusy(true);
+    setStars((s) => Math.min(JAR_CAPACITY, s + n)); // hero pours the delta
+    setTimeout(() => setBusy(false), 1600);
   };
 
   const claimAndAdvance = () => {
     if (!nextTier) return;
     setTierIndex((i) => i + 1);
-    setStars(0);
-    setDropping(true);
-    setTimeout(() => setStars(nextTier.bonus), 450);
-    setTimeout(() => setDropping(false), 1800);
+    setStars(nextTier.bonus);
+    setHeroKey((k) => k + 1); // rebuild the jar at the new tier's fill
   };
 
   return (
     <>
+      {showIntro && <LoyaltyIntro onDone={finishIntro} />}
       <Header />
 
       <main className="flex-1 bg-[#fbf8f2]">
@@ -69,9 +94,12 @@ export function LoyaltyPage() {
             </p>
           </div>
 
-          {/* Jar */}
-          <div className="mt-8">
-            <StarJar fillPercent={stars} color={tier.color} dropping={dropping} />
+          {/* 3D Jar */}
+          <div className="mt-6">
+            <HeroJar3D stars={stars} resetKey={heroKey} />
+            <p className="mt-1 text-center text-[11px] text-black/35">
+              Kéo để xoay hũ sao ✦
+            </p>
           </div>
 
           {/* progress */}
@@ -106,10 +134,10 @@ export function LoyaltyPage() {
             ) : (
               <button
                 onClick={() => addStars(10)}
-                disabled={dropping || jarFull}
+                disabled={busy || jarFull}
                 className={cn(
                   "mt-5 rounded-full px-6 py-2.5 text-sm font-medium text-white transition",
-                  dropping || jarFull ? "cursor-not-allowed bg-black/20" : "bg-hella-green hover:opacity-90",
+                  busy || jarFull ? "cursor-not-allowed bg-black/20" : "bg-hella-green hover:opacity-90",
                 )}
               >
                 Hoàn thành đơn hàng (+10 sao)
@@ -122,40 +150,42 @@ export function LoyaltyPage() {
             <h2 className="font-heading text-center text-sm font-semibold uppercase tracking-widest text-black/60">
               Các thứ hạng
             </h2>
-            <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
               {tiers.map((t, i) => {
                 const completed = i < tierIndex;
                 const current = i === tierIndex;
                 const locked = i > tierIndex;
+                const fill = completed ? 100 : current ? stars : 0;
                 return (
                   <div
                     key={t.id}
                     className={cn(
-                      "relative rounded-2xl border p-4 text-center transition",
-                      current ? "border-hella-green bg-white shadow-sm" : "border-black/10 bg-white",
+                      "relative flex flex-col items-center rounded-3xl border p-6 text-center transition",
+                      current
+                        ? "border-hella-green bg-white shadow-md ring-1 ring-hella-green/20"
+                        : "border-black/10 bg-white",
                     )}
                   >
-                    <div className={cn("relative", locked && "blur-[3px]")}>
-                      <span
-                        className="mx-auto flex h-14 w-12 items-end justify-center overflow-hidden rounded-b-3xl rounded-t-lg border-2"
-                        style={{ borderColor: `${t.color}66` }}
-                      >
-                        <span
-                          className="w-full bg-gradient-to-t from-[#e8c14a] to-[#f7e39a]"
-                          style={{ height: completed ? "100%" : current ? `${stars}%` : "0%" }}
-                        />
-                      </span>
-                      <p className="font-heading mt-3 text-sm text-black">{t.name}</p>
-                      <p className="text-[10px] text-black/45">{t.range}</p>
+                    <div className={cn("flex flex-col items-center", locked && "blur-[3px]")}>
+                      <MiniJar fillPercent={fill} className="h-28 w-24" />
+                      <p className="font-heading mt-4 text-base text-black">{t.name}</p>
+                      <p className="mt-0.5 text-[11px] text-black/45">{t.range}</p>
+                      <p className="mt-1 text-[11px] leading-snug text-black/40">{t.meaning}</p>
                     </div>
+                    {current && (
+                      <span className="mt-3 rounded-full bg-hella-green/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-hella-green">
+                        Hạng hiện tại
+                      </span>
+                    )}
                     {completed && (
-                      <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-hella-green text-white">
-                        <CheckIcon className="h-3 w-3" />
+                      <span className="absolute right-4 top-4 flex h-6 w-6 items-center justify-center rounded-full bg-hella-green text-white">
+                        <CheckIcon className="h-3.5 w-3.5" />
                       </span>
                     )}
                     {locked && (
-                      <span className="absolute inset-0 flex items-center justify-center">
-                        <KeyIcon className="h-6 w-6 text-black/40" />
+                      <span className="absolute inset-0 flex flex-col items-center justify-center gap-1 text-black/40">
+                        <KeyIcon className="h-7 w-7" />
+                        <span className="text-[10px] font-medium">Chưa mở khoá</span>
                       </span>
                     )}
                   </div>
@@ -205,32 +235,6 @@ export function LoyaltyPage() {
       </main>
 
       <Footer />
-
-      {/* reward popup */}
-      {popup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="hella-slide-up w-full max-w-sm rounded-3xl bg-white p-6 text-center shadow-xl">
-            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-hella-cream">
-              <StarIcon className="h-7 w-7 text-[#e8c14a]" />
-            </span>
-            <h2 className="font-heading text-hella-green mt-4 text-xl leading-snug">
-              Chúc mừng bạn đã hoàn thành đơn hàng và nhận được 10 sao!
-            </h2>
-            <p className="mt-2 text-sm text-black/60">
-              Cùng đổ sao vào hũ {tier.name} của bạn nhé ✦
-            </p>
-            <button
-              onClick={() => {
-                setPopup(false);
-                addStars(10);
-              }}
-              className="mt-5 w-full rounded-full bg-hella-green py-3 text-sm font-medium text-white transition hover:opacity-90"
-            >
-              Đổ sao vào hũ
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* voucher claim modal */}
       {claimed && (
