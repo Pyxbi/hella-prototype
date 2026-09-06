@@ -96,6 +96,22 @@ export function SendIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function PlayIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M8 5v14l11-7L8 5Z" />
+    </svg>
+  );
+}
+
+export function TikTokIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M16.5 3c.3 2.1 1.5 3.6 3.5 4v2.6c-1.3.1-2.6-.3-3.7-1v5.9c0 3.4-2.6 5.9-5.9 5.9A5.5 5.5 0 0 1 5 14.9a5.5 5.5 0 0 1 6.4-5.4v2.8a2.7 2.7 0 0 0-3.7 2.6 2.6 2.6 0 0 0 5.2.1V3h3.6Z" />
+    </svg>
+  );
+}
+
 export function ChatBubbleIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" {...props}>
