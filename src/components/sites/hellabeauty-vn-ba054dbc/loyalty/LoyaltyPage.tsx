@@ -7,6 +7,7 @@ import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2
 import { HeroJar3D } from "./three3d/HeroJar3D";
 import { LoyaltyIntro } from "./three3d/LoyaltyIntro";
 import { MiniJar } from "./MiniJar";
+import { StarBurst } from "./StarBurst";
 import { JAR_CAPACITY, tiers, type Voucher } from "./loyaltyData";
 import {
   CheckIcon,
@@ -24,6 +25,7 @@ export function LoyaltyPage() {
   const [busy, setBusy] = useState(false);
   const [claimed, setClaimed] = useState<Voucher | null>(null);
   const [copied, setCopied] = useState(false);
+  const [burst, setBurst] = useState<{ key: number; mode: "full" | "light" } | null>(null);
 
   // Full-screen 3D star-pour intro, once per browser session.
   const [showIntro, setShowIntro] = useState(false);
@@ -63,13 +65,18 @@ export function LoyaltyPage() {
   const nextTier = tiers[tierIndex + 1];
 
   const addStars = (n: number) => {
+    if (busy || jarFull) return;
+    // Direct: pour into the jar and sprinkle stars immediately on click.
+    setStars((s) => Math.min(JAR_CAPACITY, s + n));
+    setBurst((b) => ({ key: (b?.key ?? 0) + 1, mode: "light" }));
     setBusy(true);
-    setStars((s) => Math.min(JAR_CAPACITY, s + n)); // hero pours the delta
-    setTimeout(() => setBusy(false), 1600);
+    setTimeout(() => setBusy(false), 700);
   };
 
   const claimAndAdvance = () => {
     if (!nextTier) return;
+    // Big celebration: stars rain over the whole page + burst out of the jar.
+    setBurst((b) => ({ key: (b?.key ?? 0) + 1, mode: "full" }));
     setTierIndex((i) => i + 1);
     setStars(nextTier.bonus);
     setHeroKey((k) => k + 1); // rebuild the jar at the new tier's fill
@@ -78,6 +85,13 @@ export function LoyaltyPage() {
   return (
     <>
       {showIntro && <LoyaltyIntro onDone={finishIntro} />}
+      {burst && (
+        <StarBurst
+          key={burst.key}
+          mode={burst.mode}
+          onDone={() => setBurst(null)}
+        />
+      )}
       <Header />
 
       <main className="flex-1 bg-[#fbf8f2]">
