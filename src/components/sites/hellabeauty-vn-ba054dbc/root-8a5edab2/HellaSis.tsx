@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { HellaSisBar } from "./HellaSisBar";
 import { HellaSisChat } from "./HellaSisChat";
+import { ChatBubbleIcon } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 import {
   buildCombo,
   comboSteps,
@@ -52,6 +53,17 @@ export function HellaSis() {
       startCombo();
     } else {
       pushSis(qa?.answer ?? sisFallback);
+    }
+  };
+
+  const openFromLauncher = () => {
+    setChatOpen(true);
+    if (messages.length === 0) {
+      pushSis({
+        text: [
+          "Chào bạn! Mình là Hella Sis 💚 Bạn muốn hỏi gì về chăm sóc da, tóc hay chọn mùi hương nào? Cứ nhập câu hỏi hoặc quay lên thanh tìm kiếm để xem gợi ý nhé ✦",
+        ],
+      });
     }
   };
 
@@ -140,6 +152,15 @@ export function HellaSis() {
         onComposerSubmit={handleSubmit}
         onClose={() => setChatOpen(false)}
       />
+      {!chatOpen && (
+        <button
+          aria-label="Trò chuyện với Hella Sis"
+          onClick={openFromLauncher}
+          className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-hella-green text-white shadow-lg transition-transform hover:scale-105"
+        >
+          <ChatBubbleIcon className="h-7 w-7" />
+        </button>
+      )}
     </>
   );
 }
