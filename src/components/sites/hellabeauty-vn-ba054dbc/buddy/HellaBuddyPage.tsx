@@ -27,6 +27,8 @@ export function HellaBuddyPage() {
   const [hydrated, setHydrated] = useState(false);
 
   // Load a previously saved plan → jump straight to the timetable.
+  // One-time hydration from localStorage (unavailable during SSR).
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -44,6 +46,7 @@ export function HellaBuddyPage() {
     }
     setHydrated(true);
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const persist = (sessions: PlanSession[]) => {
     if (!answers) return;

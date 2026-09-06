@@ -43,7 +43,9 @@ export function BuddyPlan({
 
   // Persist whenever the timetable changes (including once on mount).
   const persistRef = useRef(onPersist);
-  persistRef.current = onPersist;
+  useEffect(() => {
+    persistRef.current = onPersist;
+  }, [onPersist]);
   useEffect(() => {
     persistRef.current?.(sessions);
   }, [sessions]);
