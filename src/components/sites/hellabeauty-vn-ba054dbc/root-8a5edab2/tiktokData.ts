@@ -15,7 +15,21 @@ export interface TikTokVideo {
 }
 
 function embed(videoId: string) {
-  return `https://www.tiktok.com/embed/v2/${videoId}`;
+  // Official TikTok inline player — plays the video in-page (unlike embed/v2,
+  // which only shows a preview card that opens TikTok).
+  const params = new URLSearchParams({
+    autoplay: "1",
+    controls: "1",
+    progress_bar: "1",
+    play_button: "1",
+    volume_control: "1",
+    fullscreen_button: "1",
+    loop: "1",
+    rel: "0",
+    description: "0",
+    music_info: "0",
+  });
+  return `https://www.tiktok.com/player/v1/${videoId}?${params.toString()}`;
 }
 
 export const tiktokProfileUrl = "https://www.tiktok.com/tag/hellabeauty";

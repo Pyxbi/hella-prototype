@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { TikTokVideo } from "./tiktokData";
-import { ArrowRightIcon } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
+import {
+  ArrowRightIcon,
+  CloseIcon,
+} from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 
 interface TikTokModalProps {
   video: TikTokVideo | null;
@@ -18,19 +21,36 @@ export function TikTokModal({ video, onClose }: TikTokModalProps) {
         if (!open) onClose();
       }}
     >
-      <DialogContent className="max-w-[380px] overflow-hidden bg-white p-0">
+      <DialogContent
+        showCloseButton={false}
+        className="max-h-[92vh] max-w-[380px] overflow-y-auto overflow-x-hidden rounded-2xl bg-white p-0"
+      >
         {video && (
           <div>
-            <div className="w-full bg-black">
-              <iframe
-                key={video.videoId}
-                src={video.embedUrl}
-                title={video.title}
-                className="h-[600px] w-full border-0"
-                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                allowFullScreen
-              />
+            <div className="relative w-full bg-black">
+              {/* floating close button */}
+              <button
+                type="button"
+                aria-label="Đóng"
+                onClick={onClose}
+                className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                <CloseIcon className="h-4 w-4" />
+              </button>
+
+              {/* inline TikTok player (vertical) */}
+              <div className="relative aspect-[9/16] w-full">
+                <iframe
+                  key={video.videoId}
+                  src={video.embedUrl}
+                  title={video.title}
+                  className="absolute inset-0 h-full w-full border-0"
+                  allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
             </div>
+
             <div className="p-4">
               <DialogTitle className="font-heading text-lg text-black">
                 {video.title}
