@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { IngredientsPage } from "@/components/sites/hellabeauty-vn-ba054dbc/ingredients/IngredientsPage";
+import { ArticlePage } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/article/ArticlePage";
+import { nguyenLieuArticle } from "@/components/sites/hellabeauty-vn-ba054dbc/ingredients/nguyenLieuArticle";
 
 export const metadata: Metadata = {
   title: "Nguyên liệu – Hella Beauty",
   description:
-    "Nguyên liệu Hella Beauty — minh bạch từ thiên nhiên: vỏ cam, cà phê, đậu đỏ, hạnh nhân, macca. Lành tính, an toàn, đạt chuẩn quốc tế.",
+    "Bí mật công thức body care của Hella Beauty: nguyên liệu thiên nhiên nội địa, minh bạch nguồn gốc, 100% thuần chay & an toàn.",
 };
 
 export default function Page() {
-  return <IngredientsPage />;
+  return <ArticlePage data={nguyenLieuArticle} />;
 }

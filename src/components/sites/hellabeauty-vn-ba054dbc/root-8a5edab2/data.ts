@@ -8,7 +8,7 @@ export const announcements = [
 ];
 
 export const navLinks = [
-  { label: "Câu chuyện thương hiệu", href: "/" },
+  { label: "Câu chuyện thương hiệu", href: "/pages/cau-chuyen-thuong-hieu" },
   {
     label: "Chăm sóc toàn diện",
     href: "/",
@@ -19,8 +19,15 @@ export const navLinks = [
       { label: "Bộ sưu tập bodymist", href: "/collections/bo-suu-tap-bodymist" },
     ],
   },
-  { label: "Bài viết", href: "/blogs/news" },
-  { label: "Nhà máy", href: "/pages/nha-may" },
+  {
+    label: "Bài viết",
+    href: "/blogs/news",
+    children: [
+      { label: "Nhà máy", href: "/pages/nha-may" },
+      { label: "Nguyên liệu", href: "/pages/nguyen-lieu" },
+      { label: "Câu chuyện thương hiệu", href: "/pages/cau-chuyen-thuong-hieu" },
+    ],
+  },
 ];
 
 export const heroSlides = [
