@@ -198,3 +198,21 @@
 .hella-slide-up {
   animation: hella-slide-up 0.25s ease-out;
 }
+
+/* reveal-on-scroll (JS toggles data-shown via IntersectionObserver) */
+.hella-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.hella-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hella-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

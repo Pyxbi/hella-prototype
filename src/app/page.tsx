@@ -10,6 +10,8 @@ import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2
 import { HellaSis } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/HellaSis";
 import { TikTokFeed } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/TikTokFeed";
 import { FactoryShowcase } from "@/components/sites/hellabeauty-vn-ba054dbc/factory/FactoryShowcase";
+import { IngredientShowcase } from "@/components/sites/hellabeauty-vn-ba054dbc/ingredients/IngredientShowcase";
+import { TransparencyStrip } from "@/components/sites/hellabeauty-vn-ba054dbc/ingredients/TransparencyStrip";
 import {
   collectionList1,
   collectionList2,
@@ -60,6 +62,9 @@ export default function Home() {
         />
 
         <FactoryShowcase />
+
+        <IngredientShowcase />
+        <TransparencyStrip />
 
         <HellaSis />
 
