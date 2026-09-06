@@ -66,9 +66,8 @@ export function LoyaltyPage() {
 
   const addStars = (n: number) => {
     if (busy || jarFull) return;
-    // Direct: pour into the jar and sprinkle stars immediately on click.
+    // Direct & "như cũ": just pour the stars into the 3D jar (no page-wide rain).
     setStars((s) => Math.min(JAR_CAPACITY, s + n));
-    setBurst((b) => ({ key: (b?.key ?? 0) + 1, mode: "light" }));
     setBusy(true);
     setTimeout(() => setBusy(false), 700);
   };

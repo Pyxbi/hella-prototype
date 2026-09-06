@@ -14,7 +14,7 @@ const StarJarCanvas = dynamic(
   },
 );
 
-const HERO_CAPACITY = 50;
+const HERO_CAPACITY = 66;
 
 /** Embedded, interactive jar. `stars` is 0..100; `resetKey` rebuilds on tier change. */
 export function HeroJar3D({
