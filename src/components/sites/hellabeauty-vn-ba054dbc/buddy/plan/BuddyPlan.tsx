@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { routineSteps, type BuddyAnswers } from "../buddyData";
 import {
@@ -21,17 +21,32 @@ export function BuddyPlan({
   answers,
   boughtStepIds,
   onEdit,
+  initialSessions,
+  onPersist,
+  onRestart,
 }: {
   answers: BuddyAnswers;
   boughtStepIds: string[];
   onEdit: () => void;
+  initialSessions?: PlanSession[];
+  onPersist?: (sessions: PlanSession[]) => void;
+  onRestart?: () => void;
 }) {
   const [plan] = useState(() => derivePlan(answers));
   const [weekDates] = useState(() => currentWeekDates());
-  const [sessions, setSessions] = useState<PlanSession[]>(plan.sessions);
+  const [sessions, setSessions] = useState<PlanSession[]>(
+    initialSessions && initialSessions.length ? initialSessions : plan.sessions,
+  );
   const [dragging, setDragging] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+
+  // Persist whenever the timetable changes (including once on mount).
+  const persistRef = useRef(onPersist);
+  persistRef.current = onPersist;
+  useEffect(() => {
+    persistRef.current?.(sessions);
+  }, [sessions]);
 
   const hours = plan.hourWindow;
   const selectedDayIds = [...new Set(sessions.map((s) => s.dayId))];
@@ -82,11 +97,7 @@ export function BuddyPlan({
   const changeSlot = (id: string, dayId: number, hour: number) => moveSession(id, dayId, hour);
 
   const save = () => {
-    try {
-      localStorage.setItem("hella-buddy-plan", JSON.stringify(sessions));
-    } catch {
-      /* ignore */
-    }
+    onPersist?.(sessions);
     setSaved(true);
   };
 
@@ -261,6 +272,14 @@ export function BuddyPlan({
             >
               {saved ? "Đã lưu kế hoạch ✓" : "Lưu kế hoạch"}
             </button>
+            {onRestart && (
+              <button
+                onClick={onRestart}
+                className="mt-3 w-full text-center text-xs text-black/50 underline transition hover:text-hella-green"
+              >
+                Thiết lập lại từ đầu
+              </button>
+            )}
           </aside>
         </div>
 
