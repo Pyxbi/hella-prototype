@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 import { Header } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Header";
 import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Footer";
 import { StarJar } from "./StarJar";
-import { JAR_CAPACITY, tiers } from "./loyaltyData";
+import { JAR_CAPACITY, tiers, type Voucher } from "./loyaltyData";
 import {
   CheckIcon,
+  CloseIcon,
   KeyIcon,
   StarIcon,
 } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
@@ -17,6 +18,19 @@ export function LoyaltyPage() {
   const [stars, setStars] = useState(90);
   const [dropping, setDropping] = useState(false);
   const [popup, setPopup] = useState(true);
+  const [claimed, setClaimed] = useState<Voucher | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const copyCode = async () => {
+    if (!claimed) return;
+    try {
+      await navigator.clipboard.writeText(claimed.code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
 
   const tier = tiers[tierIndex];
   const jarFull = stars >= JAR_CAPACITY;
@@ -173,7 +187,13 @@ export function LoyaltyPage() {
                       Đã dùng
                     </span>
                   ) : (
-                    <button className="shrink-0 rounded-full bg-hella-green px-4 py-2 text-xs font-medium text-white transition hover:opacity-90">
+                    <button
+                      onClick={() => {
+                        setClaimed(v);
+                        setCopied(false);
+                      }}
+                      className="shrink-0 rounded-full bg-hella-green px-4 py-2 text-xs font-medium text-white transition hover:opacity-90"
+                    >
                       Nhận mã ngay
                     </button>
                   )}
@@ -207,6 +227,68 @@ export function LoyaltyPage() {
               className="mt-5 w-full rounded-full bg-hella-green py-3 text-sm font-medium text-white transition hover:opacity-90"
             >
               Đổ sao vào hũ
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* voucher claim modal */}
+      {claimed && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          onClick={() => setClaimed(null)}
+        >
+          <div
+            className="hella-slide-up w-full max-w-sm rounded-3xl bg-white p-6 text-center shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              aria-label="Đóng"
+              onClick={() => setClaimed(null)}
+              className="absolute right-4 top-4 text-black/40 hover:text-black"
+            >
+              <CloseIcon className="h-4 w-4" />
+            </button>
+
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-hella-cream">
+              <StarIcon className="h-7 w-7 text-[#e8c14a]" />
+            </span>
+            <h2 className="font-heading text-hella-green mt-4 text-xl leading-snug">
+              Bạn đã nhận ưu đãi!
+            </h2>
+
+            {/* voucher card */}
+            <div className="mt-5 rounded-2xl border-2 border-dashed border-hella-green/40 bg-hella-cream/50 p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-black/45">
+                {claimed.brand}
+              </p>
+              <p className="font-heading text-hella-green mt-1 text-lg leading-snug">
+                {claimed.label}
+              </p>
+              <div className="mt-4 flex items-center gap-2">
+                <code className="flex-1 rounded-lg border border-black/15 bg-white px-3 py-2.5 text-center text-sm font-semibold tracking-widest text-black">
+                  {claimed.code}
+                </code>
+                <button
+                  onClick={copyCode}
+                  className={cn(
+                    "shrink-0 rounded-lg px-4 py-2.5 text-xs font-medium text-white transition",
+                    copied ? "bg-black/60" : "bg-hella-green hover:opacity-90",
+                  )}
+                >
+                  {copied ? "Đã sao chép ✓" : "Sao chép"}
+                </button>
+              </div>
+            </div>
+
+            <p className="mt-3 text-[11px] text-black/45">
+              Nhập mã khi thanh toán để áp dụng ưu đãi. Mã có hiệu lực trong 30 ngày.
+            </p>
+            <button
+              onClick={() => setClaimed(null)}
+              className="mt-5 w-full rounded-full bg-hella-green py-3 text-sm font-medium text-white transition hover:opacity-90"
+            >
+              Xong
             </button>
           </div>
         </div>
