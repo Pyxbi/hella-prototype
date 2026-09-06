@@ -1,6 +1,6 @@
 "use client";
 
-import { SisQA } from "./hellaSis";
+import { SisQA } from "./sisEngine";
 import {
   SearchIcon,
   SparkleIcon,

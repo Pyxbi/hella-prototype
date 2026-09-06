@@ -4,7 +4,7 @@ import {
   matchQuestion,
   filterSuggestions,
   buildCombo,
-} from "./hellaSis";
+} from "./sisEngine";
 
 describe("normalize", () => {
   it("lowercases and strips Vietnamese diacritics", () => {

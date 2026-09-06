@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { ComboStep, SisLink, SisMessage } from "./hellaSis";
+import { ComboStep, SisLink, SisMessage } from "./sisEngine";
 import { HellaSisComboWizard } from "./HellaSisComboWizard";
 import {
   ChatCloseIcon,

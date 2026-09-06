@@ -1,6 +1,5 @@
 import {
   sisQuestions,
-  sisFallback,
   comboSteps,
   comboCatalog,
   goalToCategories,

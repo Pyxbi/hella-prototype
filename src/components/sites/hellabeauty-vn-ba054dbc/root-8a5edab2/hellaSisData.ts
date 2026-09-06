@@ -1,5 +1,5 @@
 import { IMG } from "./data";
-import type { SisAnswer, SisQA, ComboStep, ComboProduct } from "./hellaSis";
+import type { SisAnswer, SisQA, ComboStep, ComboProduct } from "./sisEngine";
 
 // ── Static Q&A bank (edit here to add more questions) ──────────────
 export const sisQuestions: SisQA[] = [

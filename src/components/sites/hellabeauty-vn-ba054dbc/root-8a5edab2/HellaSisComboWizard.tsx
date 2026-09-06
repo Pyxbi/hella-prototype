@@ -1,6 +1,6 @@
 "use client";
 
-import { ComboStep } from "./hellaSis";
+import { ComboStep } from "./sisEngine";
 import { cn } from "@/lib/utils";
 
 interface HellaSisComboWizardProps {
