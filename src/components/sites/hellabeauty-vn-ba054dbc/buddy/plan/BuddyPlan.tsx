@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { routineSteps, type BuddyAnswers } from "../buddyData";
@@ -274,6 +275,12 @@ export function BuddyPlan({
             >
               {saved ? "Đã lưu kế hoạch ✓" : "Lưu kế hoạch"}
             </button>
+            <Link
+              href="/checkin"
+              className="mt-3 block w-full rounded-full border border-black/15 py-2.5 text-center text-sm font-medium text-black/70 transition hover:border-hella-green hover:text-hella-green"
+            >
+              Mở bản check-in (Zalo)
+            </Link>
             {onRestart && (
               <button
                 onClick={onRestart}
