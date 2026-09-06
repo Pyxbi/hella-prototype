@@ -84,6 +84,13 @@ export function AccountMenu() {
             >
               Check-in hôm nay
             </Link>
+            <Link
+              href="/pages/loyalty"
+              onClick={() => setOpen(false)}
+              className="block w-full rounded-md px-2 py-2 text-left text-black/80 transition hover:bg-hella-cream hover:text-hella-green"
+            >
+              Sao thưởng của tôi
+            </Link>
             <button className="block w-full rounded-md px-2 py-2 text-left text-black/80 transition hover:bg-hella-cream hover:text-hella-green">
               Tài khoản của tôi
             </button>

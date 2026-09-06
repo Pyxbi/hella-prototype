@@ -216,3 +216,43 @@
     transition: none;
   }
 }
+
+/* loyalty — stars falling into the jar */
+@keyframes hella-star-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-140px) rotate(0deg) scale(0.6);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(var(--fall, 160px)) rotate(160deg) scale(1);
+  }
+}
+.hella-star-fall {
+  animation: hella-star-fall 1.3s cubic-bezier(0.5, 0, 0.7, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes hella-twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.hella-twinkle {
+  animation: hella-twinkle 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hella-star-fall {
+    animation: none;
+    opacity: 1;
+  }
+  .hella-twinkle {
+    animation: none;
+  }
+}
