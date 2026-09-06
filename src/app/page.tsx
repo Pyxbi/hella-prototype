@@ -9,6 +9,7 @@ import { ImageCarousel } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8
 import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Footer";
 import { HellaSis } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/HellaSis";
 import { TikTokFeed } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/TikTokFeed";
+import { FactoryShowcase } from "@/components/sites/hellabeauty-vn-ba054dbc/factory/FactoryShowcase";
 import {
   collectionList1,
   collectionList2,
@@ -57,6 +58,8 @@ export default function Home() {
           title={vendorSection.title}
           images={vendorSection.images}
         />
+
+        <FactoryShowcase />
 
         <HellaSis />
 
