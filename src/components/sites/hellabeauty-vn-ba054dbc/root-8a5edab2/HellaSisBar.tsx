@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { SisQA } from "./sisEngine";
 import {
   SearchIcon,
@@ -25,8 +26,21 @@ export function HellaSisBar({
   suggestions,
   onPick,
 }: HellaSisBarProps) {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!barRef.current?.contains(event.target as Node)) onOpenChange(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open, onOpenChange]);
+
   return (
-    <section className="mx-auto max-w-[760px] px-5 py-16 text-center lg:py-20">
+    <section ref={barRef} className="mx-auto max-w-[760px] px-5 py-16 text-center lg:py-20">
       <p className="font-heading text-sm italic text-black/70 sm:text-base">
         Hella Sis - Trợ lý làm đẹp dành riêng cho bạn
       </p>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { SVGProps } from "react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -57,10 +58,13 @@ function Face({ mood, color, active }: { mood: number; color: string; active: bo
 }
 
 export function CheckinPage() {
+  const router = useRouter();
   const [bought, setBought] = useState<string[]>(demoBoughtStepIds);
   const [ticked, setTicked] = useState<string[]>([]);
   const [phase, setPhase] = useState<"idle" | "feeling" | "reward">("idle");
   const [feeling, setFeeling] = useState<string | null>(null);
+  const isEncouragingFeeling =
+    feeling === "amazing" || feeling === "tired" || feeling === "okay";
 
   useEffect(() => {
     try {
@@ -209,7 +213,7 @@ export function CheckinPage() {
                     </button>
                   ))}
                 </div>
-                <div className="mt-4 h-1.5 rounded-full bg-gradient-to-r from-[#e05a5a] via-[#e8c14a] to-[#4caf50]" />
+                <div className="mt-4 h-1.5 rounded-full bg-gradient-to-r from-[#4caf50] via-[#e8c14a] to-[#e05a5a]" />
               </>
             )}
 
@@ -228,18 +232,25 @@ export function CheckinPage() {
                   Bạn nhận được +50 sao!
                 </h2>
                 <p className="mx-auto mt-3 max-w-xs text-sm text-black/60">
-                  Số sao sẽ được tích luỹ vào chương trình Loyalty của Hella Beauty (sắp ra mắt) —
+                  Số sao sẽ được tích luỹ vào chương trình Loyalty của Hella Beauty —
                   tiếp tục giữ routine để nhận thêm ưu đãi nhé ✦
                 </p>
+                {isEncouragingFeeling && (
+                  <p className="mx-auto mt-4 max-w-xs border-l-2 border-hella-green bg-hella-cream px-4 py-3 text-left text-sm leading-6 text-hella-green">
+                    Hành trình 8 tuần chăm sóc bản thân của bạn sắp hoàn thành, hãy tiếp tục với
+                    Hella.
+                  </p>
+                )}
                 <button
                   onClick={() => {
                     setPhase("idle");
                     setTicked([]);
                     setFeeling(null);
+                    router.push("/pages/loyalty?source=checkin&stars=50");
                   }}
                   className="mt-6 w-full rounded-full bg-hella-green py-3 text-sm font-medium text-white transition hover:opacity-90"
                 >
-                  Hoàn tất
+                  {isEncouragingFeeling ? "Tiếp tục với Hella" : "Hoàn tất"}
                 </button>
                 <Link href="/" className="mt-3 inline-block text-xs text-black/45 underline">
                   Về trang chủ Hella Beauty

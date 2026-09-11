@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Header";
 import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Footer";
 import { HeroJar3D } from "./three3d/HeroJar3D";
 import { LoyaltyIntro } from "./three3d/LoyaltyIntro";
-import { MiniJar } from "./MiniJar";
 import { StarBurst } from "./StarBurst";
 import { JAR_CAPACITY, tiers, type Voucher } from "./loyaltyData";
 import {
@@ -17,6 +17,13 @@ import {
 } from "@/components/sites/hellabeauty-vn-ba054dbc/shared/icons";
 
 const INTRO_KEY = "hella-loyalty-intro";
+const CHECKIN_AWARD_KEY = "hella-checkin-award-seen";
+const tierJarImages = [
+  "/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/images/loyalty/tier-jar-1.png",
+  "/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/images/loyalty/tier-jar-2.png",
+  "/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/images/loyalty/tier-jar-3.png",
+  "/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/images/loyalty/tier-jar-4.png",
+] as const;
 
 export function LoyaltyPage() {
   const [tierIndex, setTierIndex] = useState(0);
@@ -26,9 +33,36 @@ export function LoyaltyPage() {
   const [claimed, setClaimed] = useState<Voucher | null>(null);
   const [copied, setCopied] = useState(false);
   const [burst, setBurst] = useState<{ key: number; mode: "full" | "light" } | null>(null);
+  const [checkinAward, setCheckinAward] = useState<number | null>(null);
 
   // Full-screen 3D star-pour intro, once per browser session.
   const [showIntro, setShowIntro] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const fromCheckin = params.get("source") === "checkin";
+    const award = Number(params.get("stars"));
+    const awardKey = `${CHECKIN_AWARD_KEY}:${award}`;
+
+    if (fromCheckin && Number.isFinite(award) && award > 0) {
+      let alreadySeen = false;
+      try {
+        alreadySeen = sessionStorage.getItem(awardKey) === "1";
+        if (!alreadySeen) sessionStorage.setItem(awardKey, "1");
+      } catch {
+        /* storage unavailable */
+      }
+
+      if (!alreadySeen) {
+        // Let the jar mount first, then the increased target releases the new stars into it.
+        const timer = setTimeout(() => {
+          setStars((current) => Math.min(JAR_CAPACITY, current + award));
+          setCheckinAward(award);
+        }, 450);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     let seen = false;
     try {
@@ -36,8 +70,9 @@ export function LoyaltyPage() {
     } catch {
       /* storage unavailable */
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!seen) setShowIntro(true);
+    const fromCheckin = new URLSearchParams(window.location.search).get("source") === "checkin";
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate the one-time intro state
+    if (!seen && !fromCheckin) setShowIntro(true);
   }, []);
 
   const finishIntro = () => {
@@ -90,6 +125,11 @@ export function LoyaltyPage() {
           mode={burst.mode}
           onDone={() => setBurst(null)}
         />
+      )}
+      {checkinAward && (
+        <div className="hella-slide-up fixed left-1/2 top-24 z-[70] -translate-x-1/2 rounded-full border border-hella-green/20 bg-white px-5 py-3 text-center text-sm font-medium text-hella-green shadow-lg">
+          +{checkinAward} sao đã được thêm vào hũ của bạn ✦
+        </div>
       )}
       <Header />
 
@@ -168,7 +208,6 @@ export function LoyaltyPage() {
                 const completed = i < tierIndex;
                 const current = i === tierIndex;
                 const locked = i > tierIndex;
-                const fill = completed ? 100 : current ? stars : 0;
                 return (
                   <div
                     key={t.id}
@@ -180,7 +219,13 @@ export function LoyaltyPage() {
                     )}
                   >
                     <div className={cn("flex flex-col items-center", locked && "blur-[3px]")}>
-                      <MiniJar fillPercent={fill} className="h-28 w-24" />
+                      <Image
+                        src={tierJarImages[i]}
+                        alt={`${t.name} Hella Beauty jar`}
+                        width={300}
+                        height={350}
+                        className="h-32 w-28 object-contain"
+                      />
                       <p className="font-heading mt-4 text-base text-black">{t.name}</p>
                       <p className="mt-0.5 text-[11px] text-black/45">{t.range}</p>
                       <p className="mt-1 text-[11px] leading-snug text-black/40">{t.meaning}</p>

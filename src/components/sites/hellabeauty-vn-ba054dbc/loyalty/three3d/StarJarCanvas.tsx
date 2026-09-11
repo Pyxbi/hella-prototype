@@ -97,7 +97,7 @@ export function StarJarCanvas({
         minDistance={8}
         maxDistance={20}
         maxPolarAngle={Math.PI / 1.95}
-        autoRotate
+        autoRotate={isIntro}
         autoRotateSpeed={isIntro ? 0.6 : 0.9}
       />
     </Canvas>

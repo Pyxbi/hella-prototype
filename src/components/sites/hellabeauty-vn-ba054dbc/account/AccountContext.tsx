@@ -11,6 +11,7 @@ export interface AccountUser {
 
 interface AccountContextValue {
   user: AccountUser | null;
+  hydrated: boolean;
   signup: (user: AccountUser) => void;
   login: (email: string) => void;
   logout: () => void;
@@ -21,6 +22,7 @@ const STORAGE_KEY = "hella-account";
 
 export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AccountUser | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
   // Hydrate from localStorage (per-viewer demo only; passwords never stored).
   useEffect(() => {
@@ -31,6 +33,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     } catch {
       /* ignore */
     }
+    setHydrated(true);
   }, []);
 
   const persist = useCallback((next: AccountUser | null) => {
@@ -67,7 +70,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(() => persist(null), [persist]);
 
   return (
-    <AccountContext.Provider value={{ user, signup, login, logout }}>
+    <AccountContext.Provider value={{ user, hydrated, signup, login, logout }}>
       {children}
     </AccountContext.Provider>
   );

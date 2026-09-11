@@ -16,6 +16,7 @@ import { IMG } from "./data";
 
 interface HellaSisChatProps {
   open: boolean;
+  variant?: "floating" | "inline";
   messages: SisMessage[];
   mode: "chat" | "combo";
   currentStep: ComboStep | null;
@@ -37,6 +38,7 @@ function LinkIcon({ icon }: { icon: SisLink["icon"] }) {
 
 export function HellaSisChat({
   open,
+  variant = "floating",
   messages,
   mode,
   currentStep,
@@ -50,13 +52,21 @@ export function HellaSisChat({
 }: HellaSisChatProps) {
   const endRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    if (variant !== "floating") return;
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, mode, currentStep]);
+  }, [messages, mode, currentStep, variant]);
 
   if (!open) return null;
 
   return (
-    <aside className="hella-slide-up fixed bottom-4 right-4 z-50 flex h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[380px] flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-2xl">
+    <aside
+      className={cn(
+        "hella-slide-up flex flex-col overflow-hidden border border-black/10 bg-white",
+        variant === "floating"
+          ? "fixed bottom-4 right-4 z-50 h-[70vh] max-h-[560px] w-[calc(100vw-2rem)] max-w-[380px] rounded-2xl shadow-2xl"
+          : "mx-auto mt-6 w-[calc(100%-2.5rem)] max-w-[760px] rounded-2xl text-left shadow-lg",
+      )}
+    >
       {/* Header */}
       <div className="flex items-center justify-between bg-hella-green px-4 py-3 text-white">
         <div className="flex items-center gap-2">

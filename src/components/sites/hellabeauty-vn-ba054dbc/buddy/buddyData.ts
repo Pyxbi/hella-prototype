@@ -71,7 +71,7 @@ export interface OrderProduct {
 // Simulated "orders found" — any code returns this sample order.
 export const sampleOrderProducts: OrderProduct[] = [
   { stepId: "tam-goi", title: "Sữa tắm hương nước hoa Hella Beauty", image: `${COL_IMG}/da-1.jpg` },
-  { stepId: "tay-tbc", title: "Tẩy tế bào chết body Hella Beauty", image: `${ROOT_IMG}/collection_list_6b_1.png` },
+  { stepId: "tay-tbc", title: "Tẩy tế bào chết body Hella Beauty", image: `${ROOT_IMG}/product.png` },
   { stepId: "da-mat", title: "Mặt nạ dưỡng da Hella Beauty", image: `${COL_IMG}/damat-1.jpg` },
   { stepId: "cham-toc", title: "Dầu gội chăm sóc tóc Hella Beauty", image: `${COL_IMG}/toc-1.jpg` },
 ];

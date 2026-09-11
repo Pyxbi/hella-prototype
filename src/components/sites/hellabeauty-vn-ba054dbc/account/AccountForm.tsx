@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAccount, type AccountUser } from "./AccountContext";
 
@@ -21,9 +22,18 @@ function Field({
   );
 }
 
-export function AccountForm({ onDone }: { onDone?: () => void }) {
+export function AccountForm({
+  onDone,
+  initialMode = "signup",
+}: {
+  onDone?: () => void;
+  initialMode?: "signup" | "login";
+}) {
   const { signup, login } = useAccount();
-  const [mode, setMode] = useState<"signup" | "login">("signup");
+  const searchParams = useSearchParams();
+  const [mode, setMode] = useState<"signup" | "login">(
+    initialMode ?? (searchParams.get("mode") === "login" ? "login" : "signup"),
+  );
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");

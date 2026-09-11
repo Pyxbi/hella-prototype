@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { useMemo } from "react";
+import { JarLabel3D } from "../../root-8a5edab2/JarLabel3D";
 
 export const JAR = {
   radius: 2.7, // inner radius of the body (bigger than the reference)
@@ -45,6 +46,7 @@ export function Jar() {
 
   return (
     <group>
+      <JarLabel3D radius={radius} />
       {/* glass shell */}
       <mesh geometry={geo} position={[0, floorY, 0]} renderOrder={2}>
         <meshPhysicalMaterial

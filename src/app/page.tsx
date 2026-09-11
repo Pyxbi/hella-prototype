@@ -3,7 +3,6 @@ import { Header } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2
 import { BannerCarousel } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/BannerCarousel";
 import { Marquee } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Marquee";
 import { CollectionBanner } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/CollectionBanner";
-import { ProductTabHeading } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/ProductTabHeading";
 import { ProductCarousel } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/ProductCarousel";
 import { ImageCarousel } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/ImageCarousel";
 import { Footer } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/Footer";
@@ -34,8 +33,16 @@ export default function Home() {
         <BannerCarousel slides={slideshow2} />
         <Marquee text="Free Shipping - Instant Delivery" duration={26} />
 
+        <HellaSis />
+
         <CollectionBanner />
-        <ProductTabHeading />
+
+        <FactoryShowcase />
+        <IngredientShowcase />
+
+        <TransparencyStrip />
+
+        <TikTokFeed />
 
         <ProductCarousel
           subtitle={collectionList1.subtitle}
@@ -60,15 +67,6 @@ export default function Home() {
           title={vendorSection.title}
           images={vendorSection.images}
         />
-
-        <FactoryShowcase />
-
-        <IngredientShowcase />
-        <TransparencyStrip />
-
-        <HellaSis />
-
-        <TikTokFeed />
 
         <ImageCarousel
           subtitle={instagramSection.subtitle}

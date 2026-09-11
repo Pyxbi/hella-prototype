@@ -26,7 +26,7 @@ export function HeroJar3D({
 }) {
   const filled = Math.round((Math.min(100, stars) / 100) * HERO_CAPACITY);
   return (
-    <div className="mx-auto h-[360px] w-full max-w-[520px] sm:h-[440px]">
+    <div className="relative mx-auto h-[360px] w-full max-w-[520px] sm:h-[440px]">
       <StarJarCanvas
         variant="hero"
         resetKey={resetKey}
