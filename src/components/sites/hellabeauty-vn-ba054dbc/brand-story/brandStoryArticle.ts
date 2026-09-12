@@ -10,7 +10,7 @@ export const brandStoryArticle: ArticleData = {
   author: "MKT",
   date: "09/09/2026 11:11",
   comments: "0 Bình luận",
-  heroImage: `${BS}/story-mirror.png`,
+  heroImage: `${BS}/story-self-choice-doc.png`,
   intro:
     "Có những khoảnh khắc ta cảm thấy mình nữ tính và cuốn hút nhất mà chẳng cần một ai nhìn thấy.",
   blocks: [
@@ -41,7 +41,7 @@ export const brandStoryArticle: ArticleData = {
       text: "Làn da mềm hơn một chút. Một mùi hương khiến bạn muốn hít thật sâu. Một vài phút chăm sóc bản thân sau một ngày dài. Hay khoảnh khắc đứng trước gương và cảm thấy: “Ừ, đây là mình.”",
     },
     { type: "p", text: "Đó là nơi Hella muốn hiện diện." },
-    { type: "image", src: `${BS}/story-triptych.png` },
+    { type: "image", src: `${BS}/story-everyday-moments-doc.png`, aspect: "classic" },
     { type: "h2", text: "HELLA BEAUTY ĐƯỢC TẠO RA CHO NHỮNG NHỊP SỐNG HIỆN ĐẠI" },
     {
       type: "p",
@@ -78,7 +78,7 @@ export const brandStoryArticle: ArticleData = {
       type: "p",
       text: "Dù HER là ai trong khoảnh khắc ấy, điều quan trọng là cô ấy được lựa chọn bởi chính bạn.",
     },
-    { type: "image", src: `${BS}/story-vanity.png` },
+    { type: "image", src: `${BS}/story-discover-world-cropped.png`, aspect: "wide" },
     { type: "h2", text: "TOGETHER: TO GET HER" },
     {
       type: "p",

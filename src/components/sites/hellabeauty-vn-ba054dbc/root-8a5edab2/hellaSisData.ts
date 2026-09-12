@@ -30,8 +30,8 @@ export const sisQuestions: SisQA[] = [
       ],
       links: [
         { label: "Website", url: "/products/tay-te-bao-chet-body-ca-phe-hella-beauty-500g", icon: "web" },
-        { label: "Shopee", url: "#", icon: "shopee" },
-        { label: "TikTok Shop", url: "#", icon: "tiktok" },
+        { label: "Shopee", url: "https://www.google.com/search?client=safari&rls=en&q=Hella+beauty+shopee&ie=UTF-8&oe=UTF-8", icon: "shopee" },
+        { label: "TikTok Shop", url: "https://shop.tiktok.com/vn/k/hella-beauty", icon: "tiktok" },
       ],
     },
   },
@@ -73,8 +73,47 @@ export const sisQuestions: SisQA[] = [
       ],
       links: [
         { label: "Website", url: "/collections/cham-soc-toc", icon: "web" },
-        { label: "Shopee", url: "#", icon: "shopee" },
-        { label: "TikTok Shop", url: "#", icon: "tiktok" },
+        { label: "Shopee", url: "https://www.google.com/search?client=safari&rls=en&q=Hella+beauty+shopee&ie=UTF-8&oe=UTF-8", icon: "shopee" },
+        { label: "TikTok Shop", url: "https://shop.tiktok.com/vn/k/hella-beauty", icon: "tiktok" },
+      ],
+    },
+  },
+  {
+    id: "daily-scent",
+    question: "Làm sao chọn mùi hương dùng hằng ngày?",
+    keywords: ["mui huong hang ngay", "chon mui huong", "mui nao", "luu huong", "bodymist hang ngay"],
+    suggested: true,
+    answer: {
+      text: [
+        "Hella Sis hiểu điều bạn đang tìm rồi nè. Nếu bạn muốn chọn một mùi hương phù hợp để sử dụng hằng ngày, mình nghĩ bạn không nhất thiết phải bắt đầu từ một “vibe” cố định đâu. Mùi hương phù hợp thường sẽ phụ thuộc vào sở thích cá nhân, hoàn cảnh sử dụng, mức độ đậm nhẹ bạn cảm thấy thoải mái và cảm giác bạn muốn có khi dùng sản phẩm.",
+        "Bạn có thể bắt đầu bằng việc để ý xem mình thường thích những mùi nhẹ và dễ chịu, ngọt hơn một chút, tươi mát hay có cảm giác ấm và nổi bật hơn. Sau đó, hãy cân nhắc thêm việc bạn định dùng mùi hương chủ yếu khi đi học, đi làm, đi chơi hay sử dụng hằng ngày, vì mỗi hoàn cảnh có thể phù hợp với một mức độ lưu hương và độ nổi bật khác nhau.",
+        "Ngoài ra, cảm nhận về mùi hương cũng khá cá nhân, nên một mùi được nhiều người yêu thích chưa chắc đã là lựa chọn phù hợp nhất với bạn. Nếu có thể, bạn nên ưu tiên những lựa chọn khiến bạn cảm thấy thoải mái, dễ sử dụng và phù hợp với thói quen của mình, thay vì chỉ chọn theo xu hướng. Nếu bạn muốn, Hella Sis có thể hỏi thêm một vài câu về mùi bạn thường thích, thời điểm bạn hay sử dụng và mức độ lưu hương mong muốn, rồi từ đó gợi ý một số sản phẩm Hella phù hợp hơn để bạn tham khảo nha.",
+      ],
+    },
+  },
+  {
+    id: "rough-body-skin",
+    question: "Da body hơi sần thì nên chăm sóc thế nào?",
+    keywords: ["da san", "body san", "da khong qua kho", "routine da san", "tay te bao chet san"],
+    suggested: true,
+    answer: {
+      text: [
+        "Chào bạn, Hella Sis hiểu điều bạn đang băn khoăn nè. Nếu da không quá khô nhưng bị sần ở một số vùng, bạn có thể bắt đầu với routine đơn giản: làm sạch nhẹ nhàng → tẩy tế bào chết với tần suất vừa phải → dưỡng ẩm đều đặn.",
+        "Khi scrub, nên tập trung nhẹ vào vùng sần thay vì chà mạnh toàn bộ body, vì chà nhiều hơn không đồng nghĩa với hiệu quả tốt hơn đâu nha. Bạn cũng có thể để ý xem tình trạng sần thay đổi theo thời tiết, sản phẩm đang dùng hoặc tần suất tẩy tế bào chết không.",
+        "Nếu bạn muốn, Hella Sis có thể hỏi thêm 2–3 câu về tình trạng da và routine hiện tại, rồi gợi ý routine hoặc sản phẩm Hella phù hợp để bạn tham khảo.",
+      ],
+    },
+  },
+  {
+    id: "scrub-irritation",
+    question: "Da bị đỏ sau khi dùng scrub có sao không?",
+    keywords: ["da do", "do sau scrub", "rat", "ngua", "sung", "kich ung scrub", "scrub do da"],
+    suggested: true,
+    answer: {
+      text: [
+        "Cảm ơn bạn đã chia sẻ, Hella Sis hiểu bạn sẽ hơi lo khi thấy da đỏ sau khi dùng sản phẩm. Da có thể đỏ nhẹ trong thời gian ngắn nếu bạn massage hơi mạnh, dùng scrub quá lâu hoặc da đang nhạy cảm. Tuy nhiên, nếu tình trạng đỏ đi kèm với rát, ngứa, sưng hoặc kéo dài, bạn nên ngưng sử dụng và theo dõi thêm nhé.",
+        "Lần sau, bạn có thể thử massage nhẹ hơn trên da ướt, không chà quá lâu và giảm tần suất xuống khoảng 1–2 lần/tuần. Sau đó nhớ dưỡng ẩm để da dễ chịu hơn nha.",
+        "Nếu bạn cho Hella Sis biết da bạn thuộc kiểu khô, dầu hay nhạy cảm và bạn thường scrub trong bao lâu, mình có thể giúp bạn xem lại cách dùng phù hợp hơn với routine của bạn.",
       ],
     },
   },

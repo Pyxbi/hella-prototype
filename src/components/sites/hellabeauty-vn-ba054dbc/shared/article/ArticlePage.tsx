@@ -55,9 +55,20 @@ function Block({ block }: { block: ArticleBlock }) {
         </div>
       );
     case "image":
+      const imageAspect =
+        block.aspect === "square"
+          ? "aspect-square"
+          : block.aspect === "portrait"
+            ? "aspect-[54/71]"
+            : block.aspect === "classic"
+              ? "aspect-[4/3]"
+              : block.aspect === "wide"
+                ? "aspect-[2/1]"
+              : "aspect-[16/10]";
+
       return (
         <figure className="mt-8">
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-[#f3efe8]">
+          <div className={`relative w-full overflow-hidden rounded-lg bg-[#f3efe8] ${imageAspect}`}>
             <Image src={block.src} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 760px" />
           </div>
           {block.caption && (

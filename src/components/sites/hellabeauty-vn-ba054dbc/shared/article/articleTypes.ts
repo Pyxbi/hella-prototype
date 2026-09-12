@@ -3,7 +3,7 @@ export type ArticleBlock =
   | { type: "p"; text: string }
   | { type: "bullets"; items: { lead?: string; text: string; href?: string }[] }
   | { type: "checklist"; title?: string; items: string[] }
-  | { type: "image"; src: string; caption?: string }
+  | { type: "image"; src: string; caption?: string; aspect?: "square" | "portrait" | "classic" | "wide" }
   | { type: "cta"; label: string; href: string };
 
 export interface RelatedArticle {

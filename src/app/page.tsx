@@ -30,10 +30,13 @@ export default function Home() {
       <main className="flex-1">
         <BannerCarousel slides={heroSlides} priority />
         <Marquee text="Hella Beauty" />
-        <BannerCarousel slides={slideshow2} />
-        <Marquee text="Free Shipping - Instant Delivery" duration={26} />
 
         <HellaSis />
+
+        <TikTokFeed />
+
+        <BannerCarousel slides={slideshow2} />
+        <Marquee text="Free Shipping - Instant Delivery" duration={26} />
 
         <CollectionBanner />
 
@@ -41,9 +44,6 @@ export default function Home() {
         <IngredientShowcase />
 
         <TransparencyStrip />
-
-        <TikTokFeed />
-
         <ProductCarousel
           subtitle={collectionList1.subtitle}
           title={collectionList1.title}

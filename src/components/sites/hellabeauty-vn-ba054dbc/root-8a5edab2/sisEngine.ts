@@ -13,6 +13,7 @@ export interface SisProductRef { title: string; image: string; href: string; }
 export interface SisAnswer {
   text: string[];
   products?: SisProductRef[];
+  details?: string[];
   links?: SisLink[];
 }
 export interface SisQA {
@@ -124,6 +125,10 @@ export function buildCombo(answers: ComboAnswers): SisAnswer {
   return {
     text: [intro],
     products: chosen.slice(0, 6),
+    details: [
+      "Dựa trên những gì bạn đã chia sẻ về vibe, loại da và nhu cầu chăm sóc, Hella Sis đã chọn ra 3 sản phẩm phù hợp nhất với bạn nè.",
+      "Lý do Hella Sis ghép 3 sản phẩm này với nhau là vì chúng bổ sung cho nhau khá tự nhiên trong routine, thay vì mỗi sản phẩm đứng riêng lẻ. Một sản phẩm hỗ trợ bước làm sạch, một sản phẩm giúp bạn chăm sóc da kỹ hơn khi cần, và một sản phẩm hoàn thiện trải nghiệm bằng mùi hương. Combo này cũng được chọn theo hướng vừa đủ và dễ áp dụng, để routine không bị quá nhiều bước nhưng vẫn có sự cân bằng giữa chăm sóc da và cảm giác cá nhân bạn muốn hướng tới. Như vậy, bạn có thể sử dụng linh hoạt theo thói quen hằng ngày nhé bạn. Nếu sau này nhu cầu, sở thích hoặc routine của bạn thay đổi, Hella Sis cũng có thể điều chỉnh lại combo để phù hợp hơn với bạn nha.",
+    ],
     links: [
       { label: "Website", url: "/", icon: "web" },
       { label: "Shopee", url: "#", icon: "shopee" },

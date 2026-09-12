@@ -34,7 +34,8 @@ export const nguyenLieuArticle: ArticleData = {
     },
     {
       type: "image",
-      src: `${ING}/article-coconut.png`,
+      src: `${ING}/article-creamy-coconut-doc.png`,
+      aspect: "square",
       caption:
         "Bảng thành phần được nghiên cứu kỹ lưỡng để mang lại hiệu quả tối ưu cho làn da Á Đông.",
     },
@@ -84,7 +85,8 @@ export const nguyenLieuArticle: ArticleData = {
     },
     {
       type: "image",
-      src: `${ING}/article-lotus.png`,
+      src: `${ING}/article-vietnamese-lotus-doc.png`,
+      aspect: "portrait",
       caption:
         "Mỗi giọt sản phẩm gửi đến bạn đều mang theo sự trân trọng và nguồn năng lượng lành tính từ thiên nhiên.",
     },
