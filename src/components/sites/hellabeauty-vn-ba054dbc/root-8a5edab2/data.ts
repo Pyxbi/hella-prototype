@@ -9,6 +9,7 @@ export const announcements = [
 
 export const navLinks = [
   { label: "Câu chuyện thương hiệu", href: "/pages/cau-chuyen-thuong-hieu" },
+  { label: "Lịch nhắc nhở", href: "/pages/hella-buddy" },
   {
     label: "Chăm sóc toàn diện",
     href: "/",

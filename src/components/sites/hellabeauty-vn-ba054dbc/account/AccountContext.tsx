@@ -20,6 +20,17 @@ interface AccountContextValue {
 const AccountContext = createContext<AccountContextValue | null>(null);
 const STORAGE_KEY = "hella-account";
 
+// The prototype has one browser-local demo account. A fresh signup represents
+// a new presentation user, so start their routine and reminder journey over.
+function resetNewUserDemoData() {
+  try {
+    localStorage.removeItem("hella-buddy-plan");
+    localStorage.removeItem("hella-sis-conversations-v1");
+  } catch {
+    /* ignore storage failures */
+  }
+}
+
 export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AccountUser | null>(null);
   const [hydrated, setHydrated] = useState(false);
@@ -46,7 +57,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const signup = useCallback((u: AccountUser) => persist(u), [persist]);
+  const signup = useCallback((u: AccountUser) => {
+    resetNewUserDemoData();
+    persist(u);
+  }, [persist]);
   const login = useCallback(
     (email: string) => {
       // Demo: re-use stored user if the email matches, else create a light session.
