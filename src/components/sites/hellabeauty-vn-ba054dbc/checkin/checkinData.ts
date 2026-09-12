@@ -31,9 +31,9 @@ export interface Feeling {
 }
 
 export const feelings: Feeling[] = [
-  { id: "amazing", label: "Not great", color: "#4caf50", mood: 4 },
-  { id: "good", label: "Tired", color: "#8bc34a", mood: 3 },
+  { id: "not-great", label: "Not great", color: "#e05a5a", mood: 0 },
+  { id: "tired", label: "Tired", color: "#ec8a3c", mood: 1 },
   { id: "okay", label: "Okay", color: "#e8c14a", mood: 2 },
-  { id: "tired", label: "Good", color: "#ec8a3c", mood: 1 },
-  { id: "not-great", label: "Amazing", color: "#e05a5a", mood: 0 },
+  { id: "good", label: "Good", color: "#8bc34a", mood: 3 },
+  { id: "amazing", label: "Amazing", color: "#4caf50", mood: 4 },
 ];
