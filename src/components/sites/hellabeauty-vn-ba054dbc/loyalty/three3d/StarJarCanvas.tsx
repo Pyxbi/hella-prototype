@@ -70,7 +70,7 @@ export function StarJarCanvas({
         </Environment>
       </Suspense>
 
-      <group position={[0, -JAR.height * 0.62, 0]}>
+      <group position={[0, -JAR.height * 0.62, 0]} scale={[1, isIntro ? 1 : 1.08, 1]}>
         <Jar />
         <Stars
           resetKey={resetKey}

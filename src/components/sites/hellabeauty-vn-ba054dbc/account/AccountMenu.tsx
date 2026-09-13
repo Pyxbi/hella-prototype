@@ -49,7 +49,7 @@ export function AccountMenu() {
       </button>
 
       {open && (
-        <div className="hella-slide-up absolute right-0 top-full z-50 mt-3 w-[280px] rounded-2xl border border-black/10 bg-white p-5 shadow-xl">
+        <div className="hella-slide-up absolute right-0 top-full z-50 mt-3 w-[min(280px,calc(100vw-96px))] rounded-2xl border border-black/10 bg-white p-5 shadow-xl">
           <button
             aria-label="Đóng"
             onClick={() => setOpen(false)}

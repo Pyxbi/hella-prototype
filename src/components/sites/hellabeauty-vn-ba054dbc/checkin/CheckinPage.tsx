@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { SVGProps } from "react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { AccountMenu } from "@/components/sites/hellabeauty-vn-ba054dbc/account/AccountMenu";
 import { IMG } from "@/components/sites/hellabeauty-vn-ba054dbc/root-8a5edab2/data";
 import type { IconName } from "@/components/sites/hellabeauty-vn-ba054dbc/buddy/buddyData";
 import {
@@ -36,11 +37,11 @@ const ICONS: Record<IconName, (p: SVGProps<SVGSVGElement>) => React.ReactElement
 };
 
 const MOUTHS = [
-  "M8 15 Q12 17.5 16 15",
-  "M8 15 Q12 16.5 16 15",
-  "M8 15.5 L16 15.5",
-  "M8 15 Q12 13.5 16 15",
   "M8 14.5 Q12 12 16 14.5",
+  "M8 15 Q12 13.5 16 15",
+  "M8 15.5 L16 15.5",
+  "M8 15 Q12 16.5 16 15",
+  "M8 15 Q12 17.5 16 15",
 ];
 
 function Face({ mood, color, active }: { mood: number; color: string; active: boolean }) {
@@ -88,8 +89,11 @@ export function CheckinPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Mini top bar (Zalo webview style) */}
-      <header className="flex items-center justify-center border-b border-black/5 py-4">
+      <header className="relative z-30 flex items-center justify-center border-b border-black/5 py-4">
         <Image src={`${IMG}/logo.png`} alt="Hella Beauty" width={92} height={22} className="h-auto w-[84px]" />
+        <div className="absolute right-5">
+          <AccountMenu />
+        </div>
       </header>
 
       <main className="mx-auto max-w-md px-5 py-8">

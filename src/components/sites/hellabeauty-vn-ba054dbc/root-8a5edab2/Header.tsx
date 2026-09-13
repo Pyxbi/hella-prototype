@@ -75,9 +75,7 @@ export function Header() {
           <button aria-label="Tìm kiếm">
             <SearchIcon className="h-5 w-5 text-black" />
           </button>
-          <div className="hidden sm:block">
-            <AccountMenu />
-          </div>
+          <AccountMenu />
           <button aria-label="Giỏ hàng" className="relative">
             <CartIcon className="h-5 w-5 text-black" />
             <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-medium text-white">
